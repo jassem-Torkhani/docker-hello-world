@@ -56,9 +56,6 @@ jobs:
           - platform: linux/amd64
             goarch: amd64
             dockerenv:
-          - platform: linux/arm/v3
-            goarch: arm
-            dockerenv: -e QEMU_CPU=arm1176
           - platform: linux/arm/v8
             goarch: arm64
             dockerenv: -e QEMU_CPU=cortex-a53
@@ -126,6 +123,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ env.IMAGE_NAME }},push-by-digest=true,name-canonical=true,push=true
+          tag: ${{ env.IMAGE_NAME }}:latest,${{ env.IMAGE_NAME }}:${{github.ref_name}}
 
       - name: Export digest
         run: |
@@ -203,8 +201,6 @@ jobs:
         include:
           - platform: linux/amd64
             dockerenv:
-          - platform: linux/arm/v6
-            dockerenv: -e QEMU_CPU=arm1176
           - platform: linux/arm/v8
             dockerenv: -e QEMU_CPU=cortex-a53
 
