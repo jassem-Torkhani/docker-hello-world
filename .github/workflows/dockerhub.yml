@@ -56,7 +56,7 @@ jobs:
           - platform: linux/amd64
             goarch: amd64
             dockerenv:
-          - platform: linux/arm/v6
+          - platform: linux/arm/v3
             goarch: arm
             dockerenv: -e QEMU_CPU=arm1176
           - platform: linux/arm/v8
@@ -140,6 +140,7 @@ jobs:
           path: /tmp/digests/*
           if-no-files-found: error
           retention-days: 1
+          overwrite: true
 
   merge:
     runs-on: ubuntu-latest
